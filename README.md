@@ -1,27 +1,15 @@
 # AppleScraper
 
-AppleScraper periodically checks the Apple Certified Refurbished page for new devices added to the site.
-
-## Installation
-
-1. Clone this repo to your preferred location
-2. Navigate to your newly created repo
-3. Run the following command
-
-```bash
-python3 main.py
-```
+AppleScraper checks the Apple Certified Refurbished page for new devices added to the site. Whenever it finds devices
+it will create a desktop notification and output the URLs to `output.txt`.
 
 ## Usage
 
 ```python3
-import AppleScraper
+import AppleHtmlParser
 
-# returns 'words'
-AppleScraper.set_devices('iPad', 'mac_mini', 'iMac')
-
-# returns dictionary of available devices
-AppleScraper.Run()
+apple_scraper = AppleScraper("mac", "macbook-air", "uk")
+apple_scraper.go()
 ```
 
 ## Contributing
