@@ -40,6 +40,8 @@ class AppleScraper(HTMLParser):
             message="Check logs now",
             app_name="Apple Peeler",
         )
+        # TODO: put the apple store top level link at the start of the file
+        # TODO: make the output writer a separate function
         with open("output.txt", "w") as file:
             for product in self.products:
                 file.write(f"{product}\n")
