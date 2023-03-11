@@ -1,20 +1,28 @@
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service as ChromeService
+from uuid import uuid1
+from time import sleep
 
-path_to_driver = r"webdriver/chromedriver.exe"
-service = Service(path_to_driver)
+
 options = Options()
-options.add_experimental_option("detach", True)
-driver = webdriver.Chrome(service=service, options=options)
+# options.add_argument("--headless")
 
-devices = {
-    "mac": ("macbook-air", "macbook-pro", "imac", "mac-mini", )
-}
+driver = webdriver.Chrome(
+    service=ChromeService(ChromeDriverManager().install()), options=options
+)
 
-country_code = "uk"
-device = "mac"
-model = "mac-mini"
+requirements = {"device": "mac", "model": "macbook-air"}
 
-driver.get(f"https://www.apple.com/us/shop/refurbished/mac/mac-mini-32gb")
+region = "uk"
+
+built_url = f"https://www.apple.com/{region}/shop/refurbished/{requirements['device']}/{requirements['model']}"
+driver.get(built_url)
+
+if driver.current_url != built_url:
+    driver.quit()
+elif driver.current_url == built_url:
+    sleep(2)
+    driver.save_screenshot(rf"images\{uuid1()}.png")
+    driver.quit()
